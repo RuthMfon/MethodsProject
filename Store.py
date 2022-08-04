@@ -232,18 +232,18 @@ def main():
       print("Welcome to the online book store!")
       print("Here are your options:")
       print("1. View Inventory\n2. View Cart\n3. Add to Cart\n4. Remove from Cart\n5. Checkout\n6. Exit")
-      option = int(input("Make your selection: "))
-      if option == 1:
+      option = input("Make your selection: ")
+      if option == "1":
          i.display_inventory()
-      elif option == 2:
+      elif option == "2":
          c.display_cart()
-      elif option == 3:
+      elif option == "3":
          c.Add_to_cart()
-      elif option == 4:
+      elif option == "4":
          c.Remove_from_cart()
-      elif option == 5:
+      elif option == "5":
          c.Checkout(i)
-      elif option == 6:
+      elif option == "6":
          return
       else:
          print("You have entered an incorrect value, please try again:")
