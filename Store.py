@@ -16,31 +16,6 @@ class Inventory:
 
       self.ISBN = isbn
 
-   
-
-   def getTitle(self):
-
-      return self.Title
-
-   def getAuthor(self):
-
-      return self.Author
-
-   def getPublisher(self):
-
-      return self.Publisher
-
-   def getStock(self):
-
-      return self.Stock
-
-   def getPrice(self):
-
-      return self.Price
-
-   def getISBN(self):
-
-      return self.ISBN
 
    def Connect_inventory():
       try:
@@ -53,7 +28,7 @@ class Inventory:
          sys.exit()   
          
     def display_inventory():
-      connection, cursor = self.Connect_cart()
+      connection, cursor = self.Connect_inventory()
       selectInventoryQuery = "SELECT * FROM inventory" 
       
       cursor.execute(selectInventoryQuery)
@@ -76,19 +51,6 @@ class Cart:
 
       self.Total = price
 
-
-
-   def getISBN(self):
-
-      return self.ISBN
-
-   def getQuantity(self):
-
-      return self.Quantity
-
-   def getTotal(self):
-
-      return self.Total
 
    def Connect_cart():
       try:
