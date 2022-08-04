@@ -73,44 +73,40 @@ class Inventory:
       cursor.close()
       connection.close()
       
-   def lower_inventory(item):
+   def lower_inventory(self, item):
+    
+      connection, cursor = self.Connect_inventory()
+      selectQuantityQ = "SELECT Quantity FROM cart WHERE ISBN= %s"
+
+      data = (item,)
+
+      cursor.execute(selectQuantityQ, data)
+
+      resultQuantity = cursor.fetchall()
     
 
-    connection, cursor = self.Connect_cart()
+      connection, cursor = self.Connect_inventory()
 
-    selectQuantityQ = "SELECT Quantity FROM cart WHERE ISBN= %s"
+      selectStockQ = "SELECT Stock FROM inventory WHERE ISBN= %s"
 
-    data = (item,)
+      data2 = (item,)
 
-    cursor.execute(selectQuantityQ, data)
+      cursor.execute(selectStockQ, data2)
 
-    resultQuantity = cursor.fetchall()
-    
-
-    connection, cursor = self.Connect_inventory()
-
-    selectStockQ = "SELECT Stock FROM inventory WHERE ISBN= %s"
-
-    data2 = (item,)
-
-    cursur.execute(selectStockQ, data2)
-
-    resultStock = cursor.fetchall()
-
-    newStock = resultStock[0][0] - resultQuantity[0][0]
+      resultStock = cursor.fetchall()
+      
+      newStock = resultStock[0][0] - resultQuantity[0][0]
 
 
+      que = "UPDATE inventory SET Stock = %s WHERE ISBN = %s"
 
-    que = "UPDATE inventory SET Stock='%s' WHERE ISBN='%s'
+      data3 = (newStock, item)
 
-    data3 = (newStock, item)
-
-    cursor.execute(que, data3)
-    connection.commit()
-
-    cursor.close()
-    connection.close()
-
+      cursor.execute(que, data3)
+      connection.commit()
+      
+      cursor.close()
+      connection.close()
 
 class Cart:
 
@@ -210,16 +206,22 @@ class Cart:
       cursor.close()
       connection.close()      
          
-   def Checkout(self):
+   def Checkout(self,inventory):
+   
       connection, cursor = self.Connect_cart()
-      #rows = cursor.execute("SELECT COUNT(ISBN) FROM cart")
-      #for r in rows:
-         #Inventory.lowerstock()
+      cursor.execute("SELECT * FROM cart")
+      
+      for row in cursor:
+         inventory.lower_inventory(row[0])
+         
       cursor.execute("DELETE FROM cart")
       connection.commit()
+      
       print(cursor.rowcount, "records deleted, cart cleared")
+      
       cursor.close()
       connection.close()
+      
       print("Connection closed")
 
       
@@ -240,7 +242,7 @@ def main():
       elif option == 4:
          c.Remove_from_cart()
       elif option == 5:
-         c.Checkout()
+         c.Checkout(i)
       elif option == 6:
          return
       else:
@@ -249,5 +251,3 @@ def main():
 
 main()
   
-
-
