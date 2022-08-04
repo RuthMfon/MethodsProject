@@ -16,33 +16,9 @@ class Inventory:
 
       self.ISBN = isbn
 
-   
 
-   def getTitle(self):
 
-      return self.Title
-
-   def getAuthor(self):
-
-      return self.Author
-
-   def getPublisher(self):
-
-      return self.Publisher
-
-   def getStock(self):
-
-      return self.Stock
-
-   def getPrice(self):
-
-      return self.Price
-
-   def getISBN(self):
-
-      return self.ISBN
-
-   def Connect_inventory():
+   def Connect_inventory(self):
       try:
          connection = mysql.connector.connect(host="localhost" ,user="root", password="", database="MethodsProject")
          print("Successful connection.")
@@ -52,7 +28,7 @@ class Inventory:
          print("Failed connection.")
          sys.exit()   
          
-    def display_inventory():
+    def Display_inventory(self):
       connection, cursor = self.Connect_cart()
       selectInventoryQuery = "SELECT * FROM inventory" 
       
@@ -76,21 +52,7 @@ class Cart:
 
       self.Total = price
 
-
-
-   def getISBN(self):
-
-      return self.ISBN
-
-   def getQuantity(self):
-
-      return self.Quantity
-
-   def getTotal(self):
-
-      return self.Total
-
-   def Connect_cart():
+   def Connect_cart(self):
       try:
          connection = mysql.connector.connect(host="localhost",user="root",password="",database="MethodsProject")
          print("Successful connection.")
@@ -100,7 +62,7 @@ class Cart:
          print("Failed connection.")
          sys.exit()
          
-    def display_cart():
+    def Display_cart(self):
       connection, cursor = self.Connect_cart()
       selectCartQuery = "SELECT * FROM cart" 
       
@@ -114,7 +76,7 @@ class Cart:
       cursor.close()
       connection.close()
          
-    def Add_to_cart():
+    def Add_to_cart(self):
       connection, cursor = self.Connect_cart()
       
       item = input("Which item would you like to add to cart? (Enter ISBN): ")
@@ -148,7 +110,7 @@ class Cart:
       cursor.close()
       connection.close()
      
-   def Remove_from_cart():
+   def Remove_from_cart(self):
       connection, cursor = self.Connect_cart()
         
       item = input("Which item would you like to remove from cart? (Enter ISBN): ")
