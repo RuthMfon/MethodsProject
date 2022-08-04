@@ -72,6 +72,45 @@ class Inventory:
       
       cursor.close()
       connection.close()
+      
+   def lower_inventory(item):
+    
+
+    connection, cursor = self.Connect_cart()
+
+    selectQuantityQ = "SELECT Quantity FROM cart WHERE ISBN= %s"
+
+    data = (item,)
+
+    cursor.execute(selectQuantityQ, data)
+
+    resultQuantity = cursor.fetchall()
+    
+
+    connection, cursor = self.Connect_inventory()
+
+    selectStockQ = "SELECT Stock FROM inventory WHERE ISBN= %s"
+
+    data2 = (item,)
+
+    cursur.execute(selectStockQ, data2)
+
+    resultStock = cursor.fetchall()
+
+    newStock = resultStock[0][0] - resultQuantity[0][0]
+
+
+
+    que = "UPDATE inventory SET Stock='%s' WHERE ISBN='%s'
+
+    data3 = (newStock, item)
+
+    cursor.execute(que, data3)
+    connection.commit()
+
+    cursor.close()
+    connection.close()
+
 
 class Cart:
 
